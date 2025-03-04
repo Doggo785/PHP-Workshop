@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagination Dynamique</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Liste des entreprises partenaires</h1>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Secteur d'activité</th>
+            <th>Ville</th>
+        </tr>
+        <?php foreach ($entreprises_page as $entreprise): ?>
+        <tr>
+            <td><?= htmlspecialchars($entreprise['nom']) ?></td>
+            <td><?= htmlspecialchars($entreprise['secteur']) ?></td>
+            <td><?= htmlspecialchars($entreprise['ville']) ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <div>
+        <?php if ($page > 1): ?>
+            <a href="?page=<?= $page - 1 ?>">Précédent</a>
+        <?php endif; ?>
+        Page <?= $page ?> / <?= $total_pages ?>
+        <?php if ($page < $total_pages): ?>
+            <a href="?page=<?= $page + 1 ?>">Suivant</a>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
