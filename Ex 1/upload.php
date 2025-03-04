@@ -1,4 +1,6 @@
 <?php
+require_once "functions.php";
+
 // Vérifier si un fichier a été envoyé
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["fileToUpload"])) {
     $uploadDir = "uploads/";
