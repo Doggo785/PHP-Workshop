@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de fichier</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Uploader un fichier PDF</h2>
+    <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" accept="application/pdf" required>
+        <button type="submit">Téléverser</button>
+    </form>
+    <div id="message"></div>
+    <div id="loader" class="hidden"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            var loader = document.getElementById('loader');
+            var message = document.getElementById('message');
+
+            loader.classList.remove('hidden');
+            message.innerHTML = '';
+
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                loader.classList.add('hidden');
+                message.innerHTML = data;
+            })
+            .catch(error => {
+                loader.classList.add('hidden');
+                message.innerHTML = 'Erreur : ' + error;
+            });
+        });
+    </script>
+</body>
+</html>
